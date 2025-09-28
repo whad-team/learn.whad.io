@@ -1,0 +1,9 @@
+baseURL = 'https://learn.whad.io/'
+languageCode = 'en-us'
+title = 'WHAD Online learning center'
+theme = 'insa-hugo-theme'
+
+[params]
+
+[params.author]
+name = "Whad Team"
