@@ -4,6 +4,9 @@ title = 'WHAD Online learning center'
 theme = 'insa-hugo-theme'
 
 [params]
-
 [params.author]
 name = "Whad Team"
+
+[caches]
+[caches.images]
+dir = ':cacheDir/images'
