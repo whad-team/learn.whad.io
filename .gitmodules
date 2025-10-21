@@ -1,6 +1,0 @@
-[submodule "themes/insa-hugo-theme"]
-	path = themes/insa-hugo-theme
-	url = https://github.com/RCayre/insa-hugo-theme
-[submodule "themes/whad-theme"]
-	path = themes/whad-theme
-	url = https://github.com/whad-team/hugo-theme.git
