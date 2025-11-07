@@ -1,32 +1,14 @@
 +++
-title = 'Discover and setup WHAD'
+title = '1. Setting up WHAD'
 draft = false
 description = "Discover WHAD and install it on your computer"
 author = "Damien Cauquil"
 date = "2025-10-20T09:00:00+01:00"
 type = "page"
 icon = "fa-solid fa-box-open"
+color = "green"
+width = "12"
 +++
-
-# A few words before diving into WHAD
-
-Before going further in this attempt of introduction to WHAD, we must thank a lot of
-people that have been involved in a way or another in the development and testing of
-WHAD. Without them, we would not have been able to add specific features or create
-some tools, or even heard or read about some ideas and papers that helped shape the
-framework the way it is:
-
-* Jiska Classen
-* Axelle Apvrille
-* Slawomir Jasek
-* Xeno and Veronica Kovah
-* Joshua J. Drake
-* Mike Ryan
-* Sami Babigeon
-* Benoit Forgette
-* Pierre Ayoub
-* Elies Tali
-
 
 # What is WHAD ?
 
@@ -68,7 +50,9 @@ In order to communicate with as much wireless devices as possible, *WHAD* suppor
 * other hardware interfaces running their own firmware, not natively able to communicates with *WHAD* but supported through a
     dedicated translation layer
 
+{{< center >}}
 ![Supported hardware](supported_devices.png "Supported hardware interfaces")
+{{< /center >}}
 
 In the end, the following devices are correctly supported:
 
@@ -140,6 +124,11 @@ machine.
 It is also highly recommended to run *WHAD* inside a *virtual environment*, either managed
 by Python's *venv* module or by an external manager like [pyenv](https://github.com/pyenv/pyenv).
 
+Make sure to have the following dependencies installed on your system before running
+the above commands:
+* Python >= 3.9 interpreter and development headers
+* a working compiler with its standard libraries as it is required to build some dependencies
+
 ## Installing WHAD on a Linux machine
 
 Most of the time, the following commands are enough to get the framework installed
@@ -153,12 +142,15 @@ $ . ./whad-venv/bin/activate
 (whad-venv)$ pip install whad
 ```
 
-{{< info title="Required dependencies">}}
-Make sure to have the following dependencies installed on your system before running
-the above commands:
-* Python >= 3.9 interpreter and development headers
-* a working compiler with its standard libraries as it is required to build some dependencies
-{{< /info >}}
+*WHAD* may need some privileges to access some hardware devices. The following
+command installs all the required _udev_ rules and permissions:
+
+```sh
+$ winstall --rules all
+```
+
+You may be asked to enter your password as some commands need _root_ privileges to
+run.
 
 ## Testing WHAD
 

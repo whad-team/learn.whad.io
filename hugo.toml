@@ -1,9 +1,13 @@
 baseURL = 'https://learn.whad.io/'
 languageCode = 'en-us'
-title = 'WHAD Online learning center'
-theme = 'insa-hugo-theme'
+DefaultContentLanguage = 'en'
+title = 'WHAD Academy'
+theme = 'whad-theme'
 
-[params]
+[params.icon]
+collection = 'fa-solid'
+icon = 'fa-graduation-cap'
+
 [params.author]
 name = "Whad Team"
 
