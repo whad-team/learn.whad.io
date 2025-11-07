@@ -1,0 +1,19 @@
+<footer id="footer" class="footer text-center">
+    <div class="container">
+      <small class="copyright">
+        {{ with .Site.Params.footerHtml }}
+        {{ . | safeHTML }}
+    {{ else }}
+            © {{ now.Format "2006" }} <a href="mailto:{{ .Site.Params.author.email }}" class="footerLink">{{ .Site.Params.author.name }}</a>, {{ .Site.Params.author.institution }}
+    {{ end }}
+      </small>
+    </div><!--//container-->
+</footer><!--//footer-->
+
+  <!-- Main Javascript -->
+  <script type="text/javascript" src='{{resources.Get "js/28f14f3da7.js"}}'></script>
+  <script type="text/javascript" src='{{resources.Get "js/jquery-1.12.3.min.js"}}'></script>
+  <script type="text/javascript" src='{{resources.Get "js/bootstrap.min.js"}}'></script>
+  <script type="text/javascript" src='{{resources.Get "js/jquery.matchHeight-min.js"}}'></script>
+  <script type="text/javascript" src='{{resources.Get "/js/main.js"}}'></script>
+  <script type="text/javascript" src='{{resources.Get "/js/jquery.scrollTo.min.js"}}'></script>

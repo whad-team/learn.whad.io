@@ -1,0 +1,34 @@
+{{ define "title"}}
+{{ .Title }} | {{ .Site.Params.author.name }}
+{{ end }}
+
+{{ define "main" }}
+
+<div>
+    <div class="listHeader">
+        <h1>{{ .Title }}</h1>
+    </div>
+
+    {{ with .Content }}
+    <div class="listContent">
+        {{- . -}}
+    </div>
+    {{ end }}
+
+    <div id="cards-wrapper" class="cards-wrapper row">
+        {{ range .Pages }}
+        <div class="item item-green col-md-12 col-sm-12 col-xs-12">
+            <div class="item-inner">
+              <div class="icon-holder">
+                <i class="icon fa   icon_cogs "></i>
+              </div><!--//icon-holder-->
+              <h3 class="title">{{ .Title }}</h3>
+              <p class="intro">{{ .Description }}</p>
+              <a class="link" href="{{ .Permalink }}"><span></span></a>
+            </div><!--//item-inner-->
+          </div><!--//item-->
+        {{end}}
+    </div>
+</div>
+
+{{ end }}

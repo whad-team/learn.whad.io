@@ -1,0 +1,34 @@
+{{ if eq .Params.Type "grid"}}
+<header class="header text-center">
+{{ end }}
+{{ if eq .Params.Type "page"}}
+<header id="header" class="header">
+{{ end }}
+    <div class="container">
+        <div class="branding">
+          <h1 class="logo">
+            {{ if eq .Params.Type "page"}}
+            <a href="/">
+            {{ end }}
+            <span aria-hidden="true" class='icon {{ .Site.Params.icon.collection }} {{ .Site.Params.icon.icon }}'></span>
+            <span class="text-bold"> {{ .Site.Title }}</span>
+            {{ if eq .Params.Type "page"}}
+              </a>
+            {{ end }}
+          </h1>
+        </div><!--//branding-->
+        {{ if eq .Params.Type "grid"}}        
+        <div class="tagline">
+          <p>{{ .Params.description }}</p>
+        </div><!--//tagline-->
+        {{ end }}
+
+        {{ if eq .Params.Type "page"}}
+        <ol class="breadcrumb">
+          <li><a href="/">{{ i18n "home"}}</a></li>
+          <li class="active">{{ .Params.Title }}</li>
+        </ol>
+        {{ end }}
+      </div><!--//container-->
+    </header><!--//header-->
+    

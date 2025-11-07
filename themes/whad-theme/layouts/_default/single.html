@@ -1,0 +1,192 @@
+{{ define "title"}}
+{{ .Title }} | {{ .Site.Params.author.name }}
+{{ end }}
+
+{{ define "main" }}
+<div id="doc-header" class="doc-header text-center">
+    <h1 class="doc-title"><span aria-hidden="true" class="icon {{.Params.Icon}}">  </span> {{ .Title }}</h1>
+    <div class="meta"><dt style="display:inline"><span class="fa fa-clock-o"></span> {{ i18n "published" }}: </dt>{{ $formattedDate := .Date.Format "2006-01-02" }} <time datetime="{{ $formattedDate }}">{{ .Date | time.Format ":date_long" }}</time>
+    </div>
+  </div><!--//doc-header-->
+  <div class="doc-body">
+    <div class="doc-content">
+        {{ .Content }}
+    </div>
+    <div class="doc-sidebar">
+        <nav id="doc-nav">
+          <ul id="doc-menu" class="nav doc-menu hidden-xs" data-spy="affix">
+            <script>
+                document.body.onload = function() {
+                    var menu = document.querySelector("#doc-menu");
+                    
+                    for (i of document.querySelectorAll("h1")) {
+                        if (i.className != "logo" && i.className != "doc-title") {
+                            i.className += "doc-section section-title";
+                            i.addEventListener("mouseover", function(e) {
+                                this.style.opacity = "70%";
+                                permalink = document.createElement("span");
+                                permalink.className = 'icon fa-solid fa-link';
+                                permalink.style.paddingLeft = "10px";
+                                document.body.style.cursor = 'pointer';
+                                this.appendChild(permalink);
+                            });
+                            i.addEventListener("mouseout", function(e) {
+                                this.style.opacity = "100%";
+                                span = this.querySelector("span");
+                                document.body.style.cursor = 'auto';
+                                if (span) {
+                                    this.removeChild(span);
+                                }
+                            });
+                            i.addEventListener("click", function(e) {
+                                baseurl = "";
+                                for (k=0;k<document.URL.length;k++) {
+                                    if (document.URL[k] == '#') {
+                                        break;
+                                    }
+                                    baseurl += document.URL[k];
+                                }
+                                this.style.opacity = "50%";
+                                // Copy the text inside the text field
+                                navigator.clipboard.writeText(baseurl + "#" + this.id);
+                                
+                            });
+                            li = document.createElement("li");
+                            menu.appendChild(li);
+                            a = document.createElement("a");
+                            li.appendChild(a);
+                            a.className = "scrollto";
+                            a.textContent = i.textContent;
+                            a.href = "#" + i.id;
+                            a.addEventListener("click", function(e) {
+                                        //store hash
+                                        var target = this.hash;
+                                        e.preventDefault();
+                                        $('body').scrollTo(target, 800, {
+                                            offset: 0,
+                                            'axis': 'y'
+                                        });
+                                    });
+
+                            console.log(i);
+                            subelement = i;
+                            listofsubelements = [];
+                            while (subelement.nextElementSibling != null && subelement.nextElementSibling.tagName != "H1") {
+                                subelement = subelement.nextElementSibling;
+                                if (subelement.tagName == "H2") {
+                                    console.log(" - ", subelement);
+                                    listofsubelements.push(subelement);
+                                }
+                            }
+                            console.log(listofsubelements);
+                            if (listofsubelements.length > 0) {
+
+                                ul = document.createElement("ul");
+                                ul.className = "nav doc-sub-menu"
+                                menu.appendChild(ul);
+
+                                for (subelement of listofsubelements) {
+                                    subelement.addEventListener("mouseover", function(e) {
+                                        this.style.opacity = "70%";
+                                        permalink = document.createElement("span");
+                                        permalink.className = 'icon fa-solid fa-link';
+                                        permalink.style.paddingLeft = "10px";
+                                        document.body.style.cursor = 'pointer';
+                                        this.appendChild(permalink);
+                                    });
+                                    subelement.addEventListener("mouseout", function(e) {
+                                        this.style.opacity = "100%";
+                                        span = this.querySelector("span");
+                                        document.body.style.cursor = 'auto';
+                                        if (span) {
+                                            this.removeChild(span);
+                                        }
+                                    });
+                                    subelement.addEventListener("click", function(e) {
+                                        baseurl = "";
+                                        for (k=0;k<document.URL.length;k++) {
+                                            if (document.URL[k] == '#') {
+                                                break;
+                                            }
+                                            baseurl += document.URL[k];
+                                        }
+                                        this.style.opacity = "50%";
+                                        // Copy the text inside the text field
+                                        navigator.clipboard.writeText(baseurl + "#" + this.id);
+                                        
+                                    });
+                                    li = document.createElement("li");
+                                    ul.appendChild(li);
+                                    a = document.createElement("a");
+                                    li.appendChild(a);
+                                    console.log(subelement);
+                                    a.className = "scrollto";
+                                    a.textContent = subelement.textContent;
+                                    a.href = "#" + subelement.id;
+                                    a.addEventListener("click", function(e) {
+                                        //store hash
+                                        var target = this.hash;
+                                        e.preventDefault();
+                                        $('body').scrollTo(target, 800, {
+                                            offset: 0,
+                                            'axis': 'y'
+                                        });
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    menu.style.width = "230px";
+                    console.log(menu.innerHTML);
+                }
+            </script>
+            <!-- <li><a class="scrollto" href="#overview">Matériel et outils logiciels</a></li>
+            <ul class="nav doc-sub-menu">
+              <li><a class="scrollto" href="#hardware">Matériel</a></li>
+              <li><a class="scrollto" href="#urh">Universal Radio Hacker</a></li>
+              <li><a class="scrollto" href="#reveng">RevENG</a></li>
+              <li><a class="scrollto" href="#whad">WHAD</a></li>
+              <li><a class="scrollto" href="#butterfly">ButteRFly (firmware)</a></li>
+            </ul>-->
+          </ul><!--//doc-menu-->
+        </nav>
+      </div><!--//doc-sidebar-->
+    </div>
+</div>
+  {{ end }}
+
+{{ define "main2" }}
+<div class="postWrapper">
+    <h1>{{ .Title }}</h1>
+    {{ if .Description}}
+    	<h3>{{.Description}}</h3>
+    {{ end }}
+    {{ if .Params.showMetadata | default true }}
+    <section class="postMetadata">
+        <dl>
+            {{ with .GetTerms "tags" }}
+                {{ partial "taxonomy/tags.html" . }}
+            {{ end }}
+            {{ with .GetTerms "authors" }}
+                {{ partial "taxonomy/authors.html" . }}
+            {{ end }}
+            {{ with .GetTerms "categories" }}
+                {{ partial "taxonomy/categories.html" . }}
+            {{ end }}
+            {{ if .Site.Params.published | default true }}
+                <dt>{{ i18n "published" }}</dt>
+                {{ $formattedDate := .Date.Format "2006-01-02" }}
+                <dd><time datetime="{{ $formattedDate }}">{{ .Date | time.Format ":date_long" }}</time></dd>
+            {{ end }}
+            {{ if .Site.Params.readingTime | default true }}
+                <dt>{{ i18n "reading_time" }}</dt>
+                <dd>{{ i18n "reading_time_desc" .ReadingTime }}</dd>
+            {{ end }}
+        </dl>
+    </section>
+    {{ end }}
+    <div>
+        {{ .Content }}
+    </div>
+</div>
+{{ end }}

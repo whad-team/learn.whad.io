@@ -1,0 +1,36 @@
+{{- /*
+    Renders a button.
+
+    @param {string} [color] The color to use.
+    @param {string} [icon] The icon to use.
+    @param {string} [href] The link to use.
+
+    @examples
+    
+      {{< button href="https://www.google.fr">}}
+      A basic button box.
+      {{< /button >}}
+    
+      
+      {{< button href="/" icon="fa-solid fa-atom" >}}
+      A basic button with a custom icon.
+      {{< /button >}}
+
+      
+      {{< button href="mailto:rcayre@laas.fr" icon="fa-solid fa-skull" color="red" >}}
+      A basic button with a custom icon and a red color.
+      {{< /button >}}
+      
+    {{- /* Get arguments. */}}
+    {{- $color := or (.Get "color") "blue" }}
+    {{- $icon := or (.Get "icon") "fa-solid fa-flask" }}
+    {{- $href := or (.Get "href") "#" }}
+    
+    {{- /* Render. */}}
+<div>
+     <center>
+        <span onclick="window.location.href = '{{- with $href }} {{ . }} {{- end -}}'" class="btn {{- with $color }} btn-{{ . }} {{- end -}}" style="margin:auto; margin:3px;"><span class="icon {{- with $icon }} {{ . }} {{- end -}}"></span> 
+        {{ .Inner | .Page.RenderString (dict "display" "inline") -}}
+    </span>
+      </center>
+</div>
