@@ -15,6 +15,6 @@ tools !
 
 We provide a set of tutorials for beginners and advanced users that will guide you
 through various aspects of this framework and its command-line tools, with practical
-exercises whenever it is possible, and learn to use it at your own pace.
+exercises whenever it is possible, so you can learn how to use it at your own pace.
 Select a category below to start your journey, if you don't really know where to
 start the [Discover and setup WHAD](/setup/) category should be a very good fit 😉.
