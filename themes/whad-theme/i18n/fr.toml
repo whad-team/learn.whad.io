@@ -1,0 +1,36 @@
+[not_found]
+    other = "PAGE NON TROUVÉE"
+
+[not_found_desc]
+    other = "Vous avez demandé une page qui n'existe pas..."
+
+[home]
+    other = "Accueil"
+
+[published]
+    other = "Dernière mise à jour"
+
+[reading_time]
+    other = "Temps de lecture"
+
+[reading_time_desc]
+  one = "1 minute"
+  other = "{{ .Count }} minutes"
+
+[authors]
+  other = "Auteur"
+
+[tags]
+  other = "Tags"
+
+[categories]
+  other = "Catégories"
+
+[and]
+  other = "et"
+
+[powered_by]
+  other = "Développé avec "
+
+[theme]
+  other = "theme"

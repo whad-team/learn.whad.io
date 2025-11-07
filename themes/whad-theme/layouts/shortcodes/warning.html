@@ -1,0 +1,33 @@
+{{- /*
+    Renders a warning box element.
+    
+    @param {string} [title] The title of the box.
+
+    @examples
+    
+      {{< warning >}}
+      A basic warning box.
+      {{< /warning >}}
+    
+      
+      {{< warning title="Custom title" >}}
+      A basic warning box with a custom title.
+      {{< /warning >}}
+      
+    {{- /* Get arguments. */}}
+    {{- $title := or (.Get "title") "Warning" }}
+    
+    {{- /* Render. */}}
+
+    <div style="width:95%; margin:auto;" class="callout-block callout-warning">
+        <div class="icon-holder">
+          <i class="fa fa-warning"></i>
+        </div><!--//icon-holder-->
+        <div class="content">
+          <h4 class="callout-title"><strong>{{- with $title }} {{ . }} {{- end -}}</strong></h4>
+          <p style="text-align:center;margin:10px;">
+            {{ .Inner | .Page.RenderString (dict "display" "block") -}}
+          </p>
+        </div><!--//content-->
+      </div>
+    

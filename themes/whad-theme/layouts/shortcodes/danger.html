@@ -1,0 +1,33 @@
+{{- /*
+    Renders a danger box element.
+    
+    @param {string} [title] The title of the box.
+
+    @examples
+    
+      {{< danger >}}
+      A basic danger box.
+      {{< /danger >}}
+    
+      
+      {{< danger title="Custom title" >}}
+      A basic danger box with a custom title.
+      {{< /danger >}}
+      
+    {{- /* Get arguments. */}}
+    {{- $title := or (.Get "title") "Danger" }}
+    
+    {{- /* Render. */}}
+
+    <div style="width:95%; margin:auto;" class="callout-block callout-danger">
+        <div class="icon-holder">
+          <i class="fa fa-solid fa-skull"></i>
+        </div><!--//icon-holder-->
+        <div class="content">
+          <h4 class="callout-title"><strong>{{- with $title }} {{ . }} {{- end -}}</strong></h4>
+          <p style="text-align:center;margin:10px;">
+            {{ .Inner | .Page.RenderString (dict "display" "block") -}}
+          </p>
+        </div><!--//content-->
+      </div>
+    

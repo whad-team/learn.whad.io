@@ -1,0 +1,33 @@
+{{- /*
+    Renders an information box element.
+    
+    @param {string} [title] The title of the box.
+
+    @examples
+    
+      {{< info >}}
+      A basic info box.
+      {{< /info >}}
+    
+      
+      {{< info title="Custom title" >}}
+      A basic info box with a custom title.
+      {{< /info >}}
+      
+    {{- /* Get arguments. */}}
+    {{- $title := or (.Get "title") "Info" }}
+    
+    {{- /* Render. */}}
+
+    <div style="width:95%; margin:auto;" class="callout-block callout-info">
+        <div class="icon-holder">
+          <i class="fa fa-info-circle"></i>
+        </div><!--//icon-holder-->
+        <div class="content">
+          <h4 class="callout-title"><strong>{{- with $title }} {{ . }} {{- end -}}</strong></h4>
+          <p style="text-align:center;margin:10px;">
+            {{ .Inner | .Page.RenderString (dict "display" "block") -}}
+          </p>
+        </div><!--//content-->
+      </div>
+    

@@ -1,0 +1,16 @@
+baseURL = 'https://example.org/'
+title = "Site d'exemple"
+theme = 'insa-hugo-theme'
+description = 'Ceci est un template de base'
+
+languageCode = 'fr'
+DefaultContentLanguage = "fr"
+
+[params.icon]
+collection = 'fa-solid'
+icon = 'fa-laptop'
+
+[params.author]
+name = "Romain Cayre"
+email = "cayre@insa-toulouse.fr"
+institution = "INSA Toulouse"

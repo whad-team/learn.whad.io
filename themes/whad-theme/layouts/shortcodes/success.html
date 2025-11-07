@@ -1,0 +1,33 @@
+{{- /*
+    Renders a success box element.
+    
+    @param {string} [title] The title of the box.
+
+    @examples
+    
+      {{< success >}}
+      A basic success box.
+      {{< /success >}}
+    
+      
+      {{< success title="Custom title" >}}
+      A basic success box with a custom title.
+      {{< /success >}}
+      
+    {{- /* Get arguments. */}}
+    {{- $title := or (.Get "title") "Success" }}
+    
+    {{- /* Render. */}}
+
+    <div style="width:95%; margin:auto;" class="callout-block callout-success">
+        <div class="icon-holder">
+          <i class="fa fa-check"></i>
+        </div><!--//icon-holder-->
+        <div class="content">
+          <h4 class="callout-title"><strong>{{- with $title }} {{ . }} {{- end -}}</strong></h4>
+          <p style="text-align:center;margin:10px;">
+            {{ .Inner | .Page.RenderString (dict "display" "block") -}}
+          </p>
+        </div><!--//content-->
+      </div>
+    

@@ -1,0 +1,38 @@
+{{- /*
+    Renders a solution box element.
+    
+    @param {string} [title] The title of the box.
+
+    @examples
+    
+      {{< solution >}}
+      A basic solution box.
+      {{< /solution >}}
+    
+      
+      {{< solution title="Custom title" >}}
+      A basic info box with a custom title.
+      {{< /solution >}}
+      
+    {{- /* Get arguments. */}}
+    {{- $title := or (.Get "title") "Solution" }}
+    
+    {{- /* Render. */}}
+
+    <div onclick="this.querySelector('.btn .icon').className = (this.querySelector('.btn .icon').className == 'icon fa-solid fa-toggle-off' ? 'icon fa-solid fa-toggle-on' : 'icon fa-solid fa-toggle-off'); this.querySelector('.answer').style.display = (this.querySelector('.answer').style.display == 'none' ? 'block' : 'none');">
+      <center>
+        <span class="btn callout-solution" style="margin:auto"><span class="icon fa-solid fa-toggle-off"></span> Afficher la solution</span>
+      </center>
+
+    <div style="width:95%; margin:auto; display:none" class="callout-block callout-solution answer">
+        <div class="icon-holder">
+          <i class="fa-solid fa-eye"></i>
+        </div><!--//icon-holder-->
+        <div class="content">
+          <h4 class="callout-title"><strong>{{- with $title }} {{ . }} {{- end -}}</strong></h4>
+          <p style="text-align:center;margin:10px;">
+            {{ .Inner | .Page.RenderString (dict "display" "block") -}}
+          </p>
+        </div><!--//content-->
+      </div>
+    </div>
