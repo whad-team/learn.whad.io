@@ -1,5 +1,5 @@
 +++
-title = '1. Setting up WHAD'
+title = 'Setting up WHAD'
 draft = false
 description = "Discover WHAD and install it on your computer"
 author = "Damien Cauquil"
@@ -8,6 +8,7 @@ type = "page"
 icon = "fa-solid fa-box-open"
 color = "green"
 width = "12"
+weight = 1
 +++
 
 # What is WHAD ?

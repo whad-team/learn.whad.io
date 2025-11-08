@@ -43,6 +43,7 @@ body {
 }
 p {
   line-height: 1.5;
+  text-align: justify;
 }
 a {
   color: #3aa7aa;
@@ -480,14 +481,25 @@ select {
   padding-bottom: 10px;
   border-bottom: 1px solid #d7d7d7;
 }
-.doc-section h1 {
-  font-size: 24px;
+
+h1.doc-section {
   font-weight: bold;
+  border-bottom: solid 1px #333;
+  padding-bottom: 0.3em;
+  margin-bottom: 1em;
 }
+
+h2 {
+    line-height: 1.2;
+    margin: 1em 0 1em 0;
+    border-bottom: 1px dashed #333;
+}
+
 .doc-section h2 {
-  font-size: 22px;
+  color: red;
   font-weight: bold;
 }
+
 .doc-section h3 {
   font-size: 20px;
   font-weight: bold;
@@ -504,6 +516,7 @@ select {
   font-size: 14px;
   font-weight: bold;
 }
+
 .section-block {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -564,6 +577,8 @@ div.highlight pre {
     box-shadow: 4px 4px 4px #888 !important;
     border: solid 1px #333 !important;
     font-weight: normal !important;
+    margin-top: 1em !important;
+    margin-bottom: 2em !important;
 }
 
 .callout-block {
@@ -577,7 +592,7 @@ div.highlight pre {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 1.5em !important;
 }
 .callout-block a {
   color: rgba(0, 0, 0, 0.55) !important;
