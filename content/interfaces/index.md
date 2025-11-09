@@ -1,5 +1,5 @@
 +++
-title = '2. WHAD devices'
+title = 'WHAD devices'
 draft = false
 description = "Discover how WHAD manages its hardware devices"
 author = "Damien Cauquil"
@@ -8,6 +8,7 @@ type = "page"
 icon = "fa-solid fa-microchip"
 color = "blue"
 width = "4"
+weight = 2
 +++
 
 {{< info title="In this lesson, you will learn">}}
