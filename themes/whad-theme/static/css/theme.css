@@ -44,7 +44,7 @@ body {
 
 p {
   line-height: 1.5;
-  text-align: center;
+  text-align: justify;
 }
 
 a {
@@ -1203,8 +1203,8 @@ div.highlight pre {
   color: #616670;
 }
 
-cards-section .intro p {
-  text-align: justify;
+.cards-section p.intro {
+  text-align: center !important;
 }
 
 .cards-section .intro h1 {
