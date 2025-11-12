@@ -26,7 +26,7 @@ advertised as *connectable*.
 {{< /info >}}
 
 This tool also implements an interactive shell that is very useful to explore devices
-in the viscinity without having to write some Python code. To run `wble-central` in
+without having to write some Python code. To run `wble-central` in
 interactive mode, simply execute the following command:
 
 ```shell
@@ -61,7 +61,7 @@ wble-central> scan
 [-080 dBm] [RND] eb:b9:17:db:e4:cd 
 ```
 
-Every device discovered during a scan is kept in a cache with all its corresponding details
+Each device discovered during a scan is kept in a cache with all its corresponding details
 including its *Bluetooth Device* address, its address type and its name if provided. The
 list of cached devices can be displayed at any time thanks to the `devices` command:
 
@@ -88,7 +88,7 @@ to select a device *BD* address thanks to this feature. Typing the first digits 
 an address followed by a press on the [TAB] key will spawn a drop-down list containing all
 the matching devices. 
 
-## Connecting to the device
+## Connecting to a device
 
 The `connect` command is used to initiate a connection to a given device based on its advertised
 name or its *BD* address:
@@ -105,10 +105,9 @@ the operation fails and a timeout error is shown. If a connection has successful
 established, the prompt will reflect this state by indicating the *BD* address of the active
 connection.
 
-Once a connection established with a target device we get access to its *GATT* server. This
-server, like many web and other application servers, allows a client application like the one
-implemented in our *Central* class to exchange data with it and dynamically interact with the
-underlying application. This application reacts to data received from the client and may send
+Once a connection established, we get access to the device's exposed *GATT* server. This
+server, like many web and other application servers, allows a client application to exchange data with it and to dynamically interact with the
+device's firmware. This firmware reacts to data received from the client and may send
 back data in response, all of this relying on the *Generic ATTribute Protocol* and its specific
 data model.
 
@@ -124,27 +123,28 @@ about *characteristics*. Each element defined in this database is an *attribute*
 16-bit handle, a type UUID and a dedicated buffer used to store the *attribute's value* (bytes),
 as defined in the *ATT* protocol upon which is based *GATT*. 
 
-*GATT* simply defines a set of basic attributes, how they are defined, organized and cross-referenced.
+*GATT* simply describes a set of basic attributes and how they are defined, organized and cross-referenced.
 The following diagram shows the relations between a *primary service*, some *characteristics* and
 their values and descriptors.
 
 ![GATT hierarchical structure](gatt-structure.png)
 
-A *characteristic*, a *service* and even a *descriptor* is an attribute, all exposed by the *GATT*
+A *characteristic*, a *service* and even a *descriptor* is an attribute, all exposed by a *GATT*
 server. *Characteristics* are the most interesting type of attributes as they define the key storage
-items we use to exchange data with a *Bluetooth Low Energy* device. They are defined by:
+structure we use to exchange data with a *Bluetooth Low Energy* device. They are defined by:
 - a 16-bit handle value used to uniquely identify the *characteristic* within the *GATT attributes database*
 - a 16-bit or 128-bit UUID identifying the *characteristic* within a *service*
 - a set of *permissions* that specify the operations a *GATT* client is allowed to perform on the *characteristic*
 - an associated value attribute that is used to store the data associated with this characteristic
 
-We need to retrieve this information from the *GATT* server by following a specific procedure implemented in WHAD's
-BLE *stack* and initiated by the `profile` command. This command will enumerate every service, characteristic, value
-and descriptor attributes and populate them in a cached *GATT* database used by our *Central* device. Once populated,
-`wble-central` is able to match a characteristic's UUID with its 16-bit handle and use this handle to exchange
-information through well-known *GATT* procedures. *Handles* are used instead of UUIDs to identify attributes because
-of their fixed size. Since *handles* are not quite easy to remember, this enumeration process provides a better view
-of the hierarchy of *services* and *characteristics*, as well as what we are supposed to be allowed to do with them.
+We need to retrieve this information from a *GATT* server by following an enumeration procedure defined in the specification
+and implemented in WHAD's BLE *stack*. This enumeration procedure can be performed thanks to the `profile` command.
+This command will enumerate every service, characteristic, value and descriptor attributes and populate them in a cached
+*GATT* database used by `wble-central`. `wble-central` is then able to match a characteristic's UUID with its 16-bit handle
+and use this handle to exchange information through standard *GATT* procedures. *Handles* are used instead of UUIDs to
+identify attributes because of their fixed size. Since *handles* are not quite easy to remember, this enumeration process
+provides a better view of the hierarchy of *services* and *characteristics*, as well as what we are supposed to be allowed
+to do with them.
 
 Let's use the `profile` command to start this enumeration on our target device:
 
@@ -176,11 +176,18 @@ Service FFE0
 `wble-central` performs this attribute enumeration procedure and displays the discovered hierarchy, detailing
 each attribute depending on its type. This hierarchy of attributes defines the device's *GATT* profile, and is
 kept in cache by the tool to avoid performing this enumeration procedure each time we need to find the *handle*
-of an attribute to read or write.
+of an attribute to read or write. Note that all characteristics have specific access rights set by the device,
+and these define the type of operations a client *GATT* application can performed:
+- A characteristic showing the `read` access right can be read,
+- a characteristic with the `write` access right can be written into with a *write request*,
+- a characteristic with the `write_without_response` access right can be written into with a *write command*,
+- a characteristic with the `notify` access right can send *notifications*,
+- a characteristic with the `indicate` access right can send *indications*.
+
 
 ## Reading a characteristic's value
 
-Once the *GATT profile* retrieved, our *Central* device can read some data exposed by the *GATT* server. The `read`
+Once the *GATT profile* retrieved, we can read some data exposed by the *GATT* server. The `read`
 command implements the *GATT read procedure* to retrieve the value of a given *characteristic*, defined by either its
 UUID or *handle*. The two `read` commands issued below target the same characteristic: the first one uses the *characteristic*'s
 16-bit UUID while the second one the corresponding *handle* value.
@@ -221,8 +228,8 @@ Service Immediate Alert (0x1802)
 ...
 ```
 
-Well, that should not be possible based on the permissions defined for this *characteristic* but it looks like the *stack*
-behaves quite oddly on this target device.
+Well, that should not be possible based on the access rights defined for this *characteristic* but it looks like the device's BLE *stack*
+behaves quite oddly on this target device and allows us to read the characteristic's value.
 
 ## Writing data into a characterstic's value 
 
@@ -322,6 +329,6 @@ To destroy the `$TARGET` variable, just execute the `unset TARGET` command.
 ## Use the interactive shell history
 
 Whenever a *WHAD* command-line tool provides an interactive shell, this shell keeps an history of every previous
-command typed. By pressing the *up key* of your keyboard, it will successively recall the previous commands
-from the more recent to the oldest. Pressing the *down key* allows to navigate back to more recent commands.
-Hitting the *enter* key will run the selected command.
+command typed for the active session. By pressing the *up arrow* key of your keyboard, it will successively recall the previous commands
+from the more recent to the oldest. Pressing the *down arrow* key allows to navigate back to more recent commands.
+Hitting *enter* will run the recalled command.
